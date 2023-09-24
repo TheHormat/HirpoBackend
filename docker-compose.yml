@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: "always"
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/vhost/:/etc/nginx/vhost.d:ro
+      - ./nginx/conf.d/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf:ro
+      - ./static/:/settings/static
+      - ./media/:/settings/media
+      - ./nginx/proxy.conf/:/etc/nginx/proxy.conf
+
+  postgres:
+    container_name:  postgres-db-tenter
+    image:           postgres:9.6.6
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pgdb:/var/lib/postgresql/data
+    env_file: .env
+    environment:
+      - LC_ALL=C.UTF-8
+
+  web:
+    container_name: tenter
+    build: .
+    restart: "always"
+    env_file: ./.env
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    # links:
+    #   - postgres
+    depends_on:
+      - "postgres"

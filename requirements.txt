@@ -1,0 +1,13 @@
+Django==3.2
+Pillow==8.4.0
+django-cleanup==6.0.0
+django-filter==21.1
+djangorestframework==3.13.1
+django-cors-headers
+djangorestframework-simplejwt==4.0.0
+drf-yasg==1.20.0
+PyJWT==1.7.1
+psycopg2
+psycopg2-binary
+gunicorn
+pandas
