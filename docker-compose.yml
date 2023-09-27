@@ -15,7 +15,7 @@ services:
       - ./nginx/proxy.conf/:/etc/nginx/proxy.conf
 
   postgres:
-    container_name:  postgres-db-tenter
+    container_name:  postgres-db-hirpo
     image:           postgres:9.6.6
     ports:
       - 5432:5432
@@ -26,7 +26,7 @@ services:
       - LC_ALL=C.UTF-8
 
   web:
-    container_name: tenter
+    container_name: hirpo
     build: .
     restart: "always"
     env_file: ./.env
